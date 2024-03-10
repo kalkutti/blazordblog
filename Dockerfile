@@ -10,11 +10,11 @@ RUN dotnet restore BlazorBlog/BlazorBlog.csproj
 
 COPY . .
 WORKDIR /src/BlazorBlog
-RUN dotnet build BlazorBlog.csproj -c %BUILD_CONFIGURATION% -o /app/build
+RUN dotnet build BlazorBlog.csproj -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish BlazorBlog.csproj -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish BlazorBlog.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
