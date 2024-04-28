@@ -1,6 +1,6 @@
-using BlazorBlog.Client.Pages;
 using BlazorBlog.Components;
 using BlazorBlog.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddConnections(options =>
+builder.Services.AddDbContextFactory<DataContext>((DbContextOptionsBuilder options) =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyAppDbContext")));
 
 var app = builder.Build();
